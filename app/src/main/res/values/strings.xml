@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Controle de Gastos</string>
+
+    <string-array name="array_categorias_valores">
+        <item>Mobilidade</item>
+        <item>Saúde</item>
+        <item>Bar/Festas</item>
+        <item>Casa</item>
+        <item>Compras</item>
+        <item>Outro</item>
+    </string-array>
+
+    <string-array name="array_categorias_ids">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+</resources>
