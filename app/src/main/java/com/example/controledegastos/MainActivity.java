@@ -1,7 +1,6 @@
 package com.example.controledegastos;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,9 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.text.ParseException;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -74,8 +70,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 data = data.replaceAll("/","-");
                 if(checkValidEntries(valor, data, detalhes, categoria)){
-                    BancoController db = new BancoController(getBaseContext());
-                    String resultado = db.insereDado(valor, detalhes, data, categoria);
+                    Gasto gasto = new Gasto(valor,data,detalhes,categoria);
+                    GastoDao db = new GastoDao(getBaseContext());
+                    String resultado = db.insereDado(gasto);
                     Toast.makeText(MainActivity.this, resultado, Toast.LENGTH_LONG).show();
                 }
             }

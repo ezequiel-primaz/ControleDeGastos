@@ -3,7 +3,10 @@ package com.example.controledegastos;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,40 +24,28 @@ import java.util.Date;
 public class GastosActivity extends AppCompatActivity {
 
     ListView gastosList;
+    GastosCursorAdapter adapter;
+    Activity context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gastos);
-
+        context = this;
         gastosList = findViewById(R.id.gastosList);
 
-        ArrayList<Gasto> gastos = new ArrayList<>();
-
-        Date data1 = new Date();
-        Date data2 = new Date();
-
-        try{
-            data1 = Helper.sdf.parse("27/08/1997");
-            data2 = Helper.sdf.parse("26/09/2000");
-        } catch(ParseException e) {
-            e.printStackTrace();
-        }
-
-        gastos.add(new Gasto((float) 15.5, data1, "info", 1));
-        gastos.add(new Gasto((float) 17.8, data2, "info2", 2));
-
-        GastoAdapter adapter = new GastoAdapter(this, gastos);
-
+        // Set the adapter for the view. Now there is no Cursor object that contains data to show
+        // so the Cursor should be null.
+        adapter=new GastosCursorAdapter(this,null);
         gastosList.setAdapter(adapter);
+    }
 
-        gastosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-            Gasto gasto = (Gasto) parent.getItemAtPosition(i);
-            Toast.makeText(getApplicationContext(), gasto.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GastoDao db = new GastoDao(this);
+        Cursor cursor = db.carregaDados();
+        adapter.changeCursor(cursor);
     }
 
     @Override
