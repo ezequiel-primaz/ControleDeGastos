@@ -38,6 +38,24 @@ public class GastosActivity extends AppCompatActivity {
         adapter = new GastosCursorAdapter(this, cursor);
         gastosList.setAdapter(adapter);
 
+        gastosList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
+                cursor.moveToPosition(position);
+
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.ID));
+
+                GastoDao db = new GastoDao(getApplicationContext());
+
+                String resultado = db.deletaRegistro(id);
+
+                Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
+                cursor = db.carregaDados();
+                adapter.changeCursor(cursor);
+                return true;
+            }
+        });
+
         gastosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

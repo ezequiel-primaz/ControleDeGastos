@@ -49,7 +49,7 @@ public class GastoDao {
         return cursor;
     }
 
-    public String alteraRegistro(Gasto gasto){
+    protected String alteraRegistro(Gasto gasto){
         ContentValues valores;
         String where;
         long resultado;
@@ -70,6 +70,20 @@ public class GastoDao {
         if (resultado ==-1)
             return "Erro ao atualizar registro " + resultado;
         else
-            return "Registro Atualizado com sucesso " + resultado;
+            return "Registro atualizado com sucesso " + resultado;
+    }
+
+    public String deletaRegistro(int id){
+        long resultado;
+        String where = DBHelper.ID + "=" + id;
+        db = banco.getReadableDatabase();
+        resultado = db.delete(DBHelper.TABELA,where,null);
+        db.close();
+
+        if (resultado ==-1)
+            return "Erro ao deletar registro";
+        else
+            return "Registro deletado com sucesso";
+
     }
 }
