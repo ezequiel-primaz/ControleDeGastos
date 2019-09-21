@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ public class GastosActivity extends AppCompatActivity {
     GastosCursorAdapter adapter;
     Activity context;
     Cursor cursor = null;
+    AlertDialog alerta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +45,8 @@ public class GastosActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long l) {
                 cursor.moveToPosition(position);
-
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.ID));
-
-                GastoDao db = new GastoDao(getApplicationContext());
-
-                String resultado = db.deletaRegistro(id);
-
-                Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
-                cursor = db.carregaDados();
-                adapter.changeCursor(cursor);
+                confirmDialog(id);
                 return true;
             }
         });
@@ -104,5 +99,29 @@ public class GastosActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void confirmDialog(final int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Deseja deletar este dado?");
+        builder.setMessage("Esta ação não pode ser desfeita.");
+        builder.setPositiveButton("Positivo", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                GastoDao db = new GastoDao(getApplicationContext());
+
+                String resultado = db.deletaRegistro(id);
+
+                Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
+                cursor = db.carregaDados();
+                adapter.changeCursor(cursor);
+            }
+        });
+        builder.setNegativeButton("Negativo", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+        alerta = builder.create();
+        alerta.show();
     }
 }

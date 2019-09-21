@@ -84,6 +84,5 @@ public class GastoDao {
             return "Erro ao deletar registro";
         else
             return "Registro deletado com sucesso";
-
     }
 }
