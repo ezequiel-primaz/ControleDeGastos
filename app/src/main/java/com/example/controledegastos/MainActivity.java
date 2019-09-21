@@ -2,6 +2,7 @@ package com.example.controledegastos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     EditText edtDetalhes;
     Button btnCadastrar;
     Spinner spinner;
+    Gasto gasto = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        gasto = (Gasto) getIntent().getSerializableExtra("gasto");
+
+        if (gasto != null) {
+            spinner.setSelection(gasto.getCategoria());
+            edtValor.setText(Float.toString(gasto.getValor()));
+            edtDetalhes.setText(gasto.getDetalhes());
+            edtDate.setText(gasto.getData());
+        }
+
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String data;
                 float valor;
                 String detalhes;
@@ -70,10 +82,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 data = data.replaceAll("/","-");
                 if(checkValidEntries(valor, data, detalhes, categoria)){
-                    Gasto gasto = new Gasto(valor,data,detalhes,categoria);
+
                     GastoDao db = new GastoDao(getBaseContext());
-                    String resultado = db.insereDado(gasto);
-                    Toast.makeText(MainActivity.this, resultado, Toast.LENGTH_LONG).show();
+                    if (gasto != null) {
+                        if (valor != gasto.getValor() || !data.equals(gasto.getData().replaceAll("/", "-")) || !detalhes.equals(gasto.getDetalhes()) || categoria != gasto.getCategoria()){
+                            Gasto newGasto = new Gasto(gasto.get_id(),valor,data,detalhes,categoria);
+                            String result = db.alteraRegistro(newGasto);
+                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(),GastosActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Nenhum valor modificado, por favor faça alguma alteração para ser armazenada.", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Gasto newGasto = new Gasto(valor,data,detalhes,categoria);
+                        String resultado = db.insereDado(newGasto);
+                        Toast.makeText(MainActivity.this, resultado, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(),GastosActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
             }
         });

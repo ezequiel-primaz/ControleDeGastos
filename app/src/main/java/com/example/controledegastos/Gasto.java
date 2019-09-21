@@ -1,8 +1,9 @@
 package com.example.controledegastos;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Gasto {
+public class Gasto implements Serializable {
 
     private int _id;
     private float valor;
@@ -23,6 +24,10 @@ public class Gasto {
         this.data = data;
         this.detalhes = detalhes;
         this.categoria = categoria;
+    }
+
+    public int get_id() {
+        return _id;
     }
 
     public float getValor() {

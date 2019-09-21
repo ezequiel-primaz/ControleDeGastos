@@ -26,6 +26,7 @@ public class GastosActivity extends AppCompatActivity {
     ListView gastosList;
     GastosCursorAdapter adapter;
     Activity context;
+    Cursor cursor = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +35,34 @@ public class GastosActivity extends AppCompatActivity {
         context = this;
         gastosList = findViewById(R.id.gastosList);
 
-        // Set the adapter for the view. Now there is no Cursor object that contains data to show
-        // so the Cursor should be null.
-        adapter=new GastosCursorAdapter(this,null);
+        adapter = new GastosCursorAdapter(this, cursor);
         gastosList.setAdapter(adapter);
+
+        gastosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                cursor.moveToPosition(position);
+
+                int cod = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.ID));
+                float valor = cursor.getFloat(cursor.getColumnIndexOrThrow(DBHelper.VALOR));
+                String data = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.DATA));
+                String detalhes = cursor.getString(cursor.getColumnIndexOrThrow(DBHelper.DETALHES));
+                int categoria = cursor.getInt(cursor.getColumnIndexOrThrow(DBHelper.CATEGORIA));
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Gasto gasto = new Gasto(cod, valor, data, detalhes, categoria);
+                intent.putExtra("gasto", gasto);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         GastoDao db = new GastoDao(this);
-        Cursor cursor = db.carregaDados();
+        cursor = db.carregaDados();
         adapter.changeCursor(cursor);
     }
 

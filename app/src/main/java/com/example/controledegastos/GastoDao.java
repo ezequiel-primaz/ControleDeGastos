@@ -48,4 +48,28 @@ public class GastoDao {
         db.close();
         return cursor;
     }
+
+    public String alteraRegistro(Gasto gasto){
+        ContentValues valores;
+        String where;
+        long resultado;
+
+        db = banco.getWritableDatabase();
+
+        where = DBHelper.ID + "=" + gasto.get_id();
+
+        valores = new ContentValues();
+        valores.put(DBHelper.VALOR, gasto.getValor());
+        valores.put(DBHelper.DETALHES, gasto.getDetalhes());
+        valores.put(DBHelper.DATA, gasto.getData());
+        valores.put(DBHelper.CATEGORIA, gasto.getCategoria());
+
+        resultado = db.update(DBHelper.TABELA, valores, where,null);
+        db.close();
+
+        if (resultado ==-1)
+            return "Erro ao atualizar registro " + resultado;
+        else
+            return "Registro Atualizado com sucesso " + resultado;
+    }
 }

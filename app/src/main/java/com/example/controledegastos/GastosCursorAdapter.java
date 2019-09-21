@@ -33,7 +33,7 @@ public class GastosCursorAdapter extends CursorAdapter {
         txtValor.setText(Float.toString(valor));
 
         TextView txtData = listItemView.findViewById(R.id.txtData);
-        String data = cursor.getString(cursor.getColumnIndex(DBHelper.DATA));
+        String data = cursor.getString(cursor.getColumnIndex(DBHelper.DATA)).replaceAll("-","/");
         txtData.setText(data);
 
         TextView txtDetalhes = listItemView.findViewById(R.id.txtDetalhes);
@@ -44,27 +44,27 @@ public class GastosCursorAdapter extends CursorAdapter {
         int categoria = cursor.getInt(cursor.getColumnIndex(DBHelper.CATEGORIA));
 
         switch (categoria){
-            case 1: {
+            case 0: {
                 imgCategoria.setImageResource(R.drawable.mobility);
                 break;
             }
 
-            case 2: {
+            case 1: {
                 imgCategoria.setImageResource(R.drawable.health);
                 break;
             }
 
-            case 3: {
+            case 2: {
                 imgCategoria.setImageResource(R.drawable.drink);
                 break;
             }
 
-            case 4: {
+            case 3: {
                 imgCategoria.setImageResource(R.drawable.home);
                 break;
             }
 
-            case 5: {
+            case 4: {
                 imgCategoria.setImageResource(R.drawable.shop);
                 break;
             }
