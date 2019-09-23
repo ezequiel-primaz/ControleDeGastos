@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             edtValor.setText(Float.toString(gasto.getValor()));
             edtDetalhes.setText(gasto.getDetalhes());
             edtDate.setText(gasto.getData());
+            btnCadastrar.setText(getResources().getString(R.string.app_salvar));
         }
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Nenhum valor modificado, por favor faça alguma alteração para ser armazenada.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.app_objeto_n_modificado), Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Gasto newGasto = new Gasto(valor,data,detalhes,categoria);
@@ -115,15 +116,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (data.matches("\\d{2}-\\d{2}-\\d{4}")) {
                 return true;
             } else {
-                Toast.makeText(this, "Data Inválida", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.app_data_invalida), Toast.LENGTH_LONG).show();
                 return false;
             }
 
         } else {
             if (valor <= 0F) {
-                Toast.makeText(this, "Valor Inválido", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.app_valor_invalido), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Insira alguns detalhes sobre este lançamento", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.app_detalhe_invalido), Toast.LENGTH_LONG).show();
             }
             return false;
         }

@@ -46,31 +46,37 @@ public class GastosCursorAdapter extends CursorAdapter {
         switch (categoria){
             case 0: {
                 imgCategoria.setImageResource(R.drawable.mobility);
+                imgCategoria.setContentDescription(view.getResources().getString(R.string.app_category_content_description_mobility));
                 break;
             }
 
             case 1: {
                 imgCategoria.setImageResource(R.drawable.health);
+                imgCategoria.setContentDescription(view.getResources().getString(R.string.app_category_content_description_health));
                 break;
             }
 
             case 2: {
                 imgCategoria.setImageResource(R.drawable.drink);
+                imgCategoria.setContentDescription(view.getResources().getString(R.string.app_category_content_description_drink));
                 break;
             }
 
             case 3: {
                 imgCategoria.setImageResource(R.drawable.home);
+                imgCategoria.setContentDescription(view.getResources().getString(R.string.app_category_content_description_home));
                 break;
             }
 
             case 4: {
                 imgCategoria.setImageResource(R.drawable.shop);
+                imgCategoria.setContentDescription(view.getResources().getString(R.string.app_category_content_description_shop));
                 break;
             }
 
             default: {
                 imgCategoria.setImageResource(R.drawable.other);
+                imgCategoria.setContentDescription(view.getResources().getString(R.string.app_category_content_description_other));
                 break;
             }
         }

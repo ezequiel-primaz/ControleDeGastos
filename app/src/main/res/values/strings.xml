@@ -1,5 +1,32 @@
 <resources>
     <string name="app_name">Controle de Gastos</string>
+    <string name="app_category_description">Imagem que representa categoria do gasto</string>
+    <string name="app_valor">Valor: R$</string>
+    <string name="app_data">Data:</string>
+    <string name="app_detalhes">Detalhes:</string>
+    <string name="app_categoria">Categoria:</string>
+    <string name="app_taxi_hint">Taxi</string>
+    <string name="app_data_hint">27/08/2019</string>
+    <string name="app_cadastrar">Cadastrar</string>
+    <string name="app_valor_hint">5.00</string>
+    <string name="app_salvar">Salvar</string>
+
+    <string name="app_objeto_n_modificado">Nenhum valor modificado, por favor faça alguma alteração para ser armazenada.</string>
+    <string name="app_data_invalida">Data Inválida</string>
+    <string name="app_valor_invalido">Valor Inválido</string>
+    <string name="app_detalhe_invalido">Insira alguns detalhes sobre este lançamento</string>
+
+    <string name="app_confirm_dialog_title">Deseja deletar este dado?</string>
+    <string name="app_confirm_dialog_messege">Esta ação não pode ser desfeita.</string>
+    <string name="app_confirm_dialog_positive">Confirmar</string>
+    <string name="app_confirm_dialog_negative">Deletar</string>
+
+    <string name="app_category_content_description_mobility">Categoria: Mobilidade</string>
+    <string name="app_category_content_description_health">Categoria: Saúde</string>
+    <string name="app_category_content_description_shop">Categoria: Compras</string>
+    <string name="app_category_content_description_drink">Categoria: Bar ou Festas</string>
+    <string name="app_category_content_description_home">Categoria: Casa</string>
+    <string name="app_category_content_description_other">Categoria: Outra</string>
 
     <string-array name="array_categorias_valores">
         <item>Mobilidade</item>

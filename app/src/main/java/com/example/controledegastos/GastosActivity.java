@@ -103,9 +103,9 @@ public class GastosActivity extends AppCompatActivity {
 
     private void confirmDialog(final int id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Deseja deletar este dado?");
-        builder.setMessage("Esta ação não pode ser desfeita.");
-        builder.setPositiveButton("Positivo", new DialogInterface.OnClickListener() {
+        builder.setTitle(getResources().getString(R.string.app_confirm_dialog_title));
+        builder.setMessage(getResources().getString(R.string.app_confirm_dialog_messege));
+        builder.setPositiveButton(getResources().getString(R.string.app_confirm_dialog_positive), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
                 GastoDao db = new GastoDao(getApplicationContext());
 
@@ -116,7 +116,7 @@ public class GastosActivity extends AppCompatActivity {
                 adapter.changeCursor(cursor);
             }
         });
-        builder.setNegativeButton("Negativo", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.app_confirm_dialog_negative), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
 
             }
