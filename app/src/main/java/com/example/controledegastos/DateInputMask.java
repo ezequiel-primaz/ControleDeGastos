@@ -9,7 +9,7 @@ import java.util.Calendar;
 public class DateInputMask implements TextWatcher {
 
     private String current = "";
-    private String ddmmyyyy = "DDMMYYYY";
+    private String ddmmyyyy = "DDMMAAAA";
     private Calendar cal = Calendar.getInstance();
     private EditText input;
 

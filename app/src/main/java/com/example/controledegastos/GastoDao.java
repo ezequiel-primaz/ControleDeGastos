@@ -9,9 +9,11 @@ public class GastoDao {
 
     private SQLiteDatabase db;
     private DBHelper banco;
+    private Context context;
 
     public GastoDao(Context context){
         banco = new DBHelper(context);
+        this.context = context;
     }
 
     public String insereDado(Gasto gasto){
@@ -30,9 +32,9 @@ public class GastoDao {
         db.close();
 
         if (resultado ==-1)
-            return "Erro ao inserir registro";
+            return this.context.getResources().getString(R.string.app_insert_error_messege);
         else
-            return "Registro Inserido com sucesso";
+            return this.context.getResources().getString(R.string.app_insert_success_messege);
 
     }
 
@@ -68,9 +70,9 @@ public class GastoDao {
         db.close();
 
         if (resultado ==-1)
-            return "Erro ao atualizar registro " + resultado;
+            return this.context.getResources().getString(R.string.app_update_error_messege);
         else
-            return "Registro atualizado com sucesso " + resultado;
+            return this.context.getResources().getString(R.string.app_update_success_messege);
     }
 
     public String deletaRegistro(int id){
@@ -81,8 +83,8 @@ public class GastoDao {
         db.close();
 
         if (resultado ==-1)
-            return "Erro ao deletar registro";
+            return this.context.getResources().getString(R.string.app_delete_error_messege);
         else
-            return "Registro deletado com sucesso";
+            return this.context.getResources().getString(R.string.app_delete_success_messege);
     }
 }

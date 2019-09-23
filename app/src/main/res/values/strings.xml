@@ -28,6 +28,13 @@
     <string name="app_category_content_description_home">Categoria: Casa</string>
     <string name="app_category_content_description_other">Categoria: Outra</string>
 
+    <string name="app_delete_error_messege">Erro ao deletar registro</string>
+    <string name="app_insert_error_messege">Erro ao inserir registro</string>
+    <string name="app_update_error_messege">Erro ao atualizar registro</string>
+    <string name="app_update_success_messege">Registro atualizado com sucesso</string>
+    <string name="app_delete_success_messege">Registro deletado com sucesso</string>
+    <string name="app_insert_success_messege">Registro inserido com sucesso</string>
+
     <string-array name="array_categorias_valores">
         <item>Mobilidade</item>
         <item>Saúde</item>
